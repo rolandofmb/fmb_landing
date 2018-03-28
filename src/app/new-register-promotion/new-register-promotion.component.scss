@@ -1,0 +1,93 @@
+.logo img {
+  margin-bottom: 3% !important;
+}
+
+.register, .inputsOut{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 30px;
+}
+
+.inputsOut{
+  margin-left: 11% !important;
+  width: 78% !important;
+}
+
+mat-form-field{
+  width: 80%;
+}
+
+.form{
+  border: 1px solid #cccccc;
+  padding: 20px 5%;
+  background-color: #ffffff;
+
+  mat-form-field, mat-checkbox{
+    width: 95%;
+  }
+
+  .btn{
+    text-align: right;
+
+    button{
+      background-color: #f68b1f !important;
+      width: 150px;
+    }
+  }
+}
+
+
+
+.head-blue{
+  text-align: left !important;
+  padding-left: 6%;
+}
+
+
+.mt{
+  margin-top: 30px;
+}
+
+
+.btn{
+  text-align: center;
+  margin-top: 30px;
+
+  button{
+    background-color: #f68b1f !important;
+    width: 150px;
+  }
+
+  .cancel{
+    background-color: #757575 !important;
+    margin-right: 30px;
+  }
+}
+
+.le{
+  color: #006fba;
+  text-align: left;
+  justify-content: left;
+  margin-top: 20px;
+  figure, .mat-figure{
+    justify-content: left !important;
+  }
+}
+
+
+.mat-checkbox{
+  color: #757575;
+}
+
+
+.subh{
+  color: #006fba;
+  font-family: 'Gotham-medium' !important;
+  margin-bottom: 20px;
+
+  mat-grid-tile{
+    border-bottom: 1px solid #006fba;
+    width: calc(((48% - 0.5px) * 1) + 0px) !important;
+    margin: 10px;
+  }
+}
