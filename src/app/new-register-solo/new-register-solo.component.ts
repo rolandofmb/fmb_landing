@@ -18,12 +18,15 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./new-register-solo.component.scss']
 })
 export class NewRegisterSoloComponent implements OnInit {
+  
   @ViewChild('canal') canal;
+  @ViewChild('csq') csq;
   @ViewChild('interes') interes;
   @ViewChild('name') name: ElementRef;
   @ViewChild('patern') patern: ElementRef;
   @ViewChild('matern') matern: ElementRef;
   @ViewChild('mail') mail: ElementRef;
+  @ViewChild('mailRegis') mailRegis: ElementRef;
   @ViewChild('cel') cel: ElementRef;
   @ViewChild('phone') phone: ElementRef;
   @ViewChild('gender') gender;
@@ -39,49 +42,100 @@ export class NewRegisterSoloComponent implements OnInit {
   send = false;
   inputError: any;
   txtError: any;
-
+  
   matcher = new MyErrorStateMatcher();
-  namee = new FormControl('', [Validators.required, this.validName.bind(this)]);
-  paternn = new FormControl('', [Validators.required, this.validPatern.bind(this)]);
-  maternn = new FormControl('', [Validators.required, this.validMatern.bind(this)]);
-  maill = new FormControl('', [Validators.required, this.validMail.bind(this)]);
-  cell = new FormControl('', [Validators.required, this.validCel.bind(this)]);
-  phonee = new FormControl('', [Validators.required, this.validPhone.bind(this)]);
+
+  
+  namee = new FormControl('', this.validName.bind(this));
+  paternn = new FormControl('', this.validPatern.bind(this));
+  maternn = new FormControl('', this.validMatern.bind(this));
+  maill = new FormControl('', this.validMail.bind(this));
+  cell = new FormControl('', this.validCel.bind(this));
+  phonee = new FormControl('', this.validPhone.bind(this));
   genderr = new FormControl('', this.validGender.bind(this));
-  birthdayy = new FormControl('', [Validators.required, this.validBirthday.bind(this)]);
-  agee = new FormControl('', [Validators.required, this.validAge.bind(this)]);
+  birthdayy = new FormControl('', this.validBirthday.bind(this));
+  agee = new FormControl('', this.validAge.bind(this));
   interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
   interestNivell = new FormControl('', this.validInterestNivel.bind(this));
+  citaCampuss = new FormControl('', this.validCitaCampus.bind(this));
+  tipificacionn = new FormControl('', this.validTipificacion.bind(this));
+
+  phoneRegiss = new FormControl('');
+  phonerr = new FormControl('');
+
+  nameRegiss = new FormControl('');
+  paternRegiss = new FormControl('');
+  maternRegiss = new FormControl('');
+  mailRegiss = new FormControl('');
+  celRegiss = new FormControl('');
+  notass = new FormControl('');
+  userr = new FormControl('Ricardo Vargas');
+
 
   nameTxtError: any = false;
   paternTxtError: any = false;
   maternTxtError: any = false;
   mailTxtError: any = false;
-  celTxtError: any = false;
+  mailRegisTxtError: any = false;
   phoneTxtError: any = false;
-  birthdayTxtError: any = false;
-  ageTxtError: any = false;
+  tipoTxtError: any = false;
 
   constructor(private gralService: GeneralService, public dialog: MatDialog, private renderer: Renderer2) {
-    this.user.parent = '0'; this.user.gender = '0';
+    this.user.canal = '0'; this.user.interes = '0'; this.user.csq = '0'; this.user.parent = '0'; this.user.gender = '0';
     this.user.interestCampus = '0'; this.user.interestArea = '0'; this.user.interestNivel = '0'; this.user.interestModel = '0'; this.user.interestCareer = '0';
-    this.user.interestCycle = '0';
+    this.user.interestCycle = '0'; this.user.citaCampus = '0'; this.user.citaAsesor = '0'; this.user.tipificacion = '0';
   }
 
   ngOnInit() {
   }
 
-  save() {
-    console.log(this.user);
+  addValidation(isChecked)
+  {
+    if(isChecked.checked){          
+        this.maill.reset({value: '', disabled: true});        
+    }else{
+        this.maill.reset({value: '', disabled: false});        
+        this.maill.setValidators(this.validMail.bind(this)); 
+    } 
+    this.maill.updateValueAndValidity(); 
+  }
+  onKeydownEmail(event: KeyboardEvent) {
+    let name = this.nameRegiss.value;  
+    console.log(name);              
+    if(name==''){
+         this.nameRegiss.clearValidators();
+         this.paternRegiss.clearValidators();
+         this.maternRegiss.clearValidators();
+         this.mailRegiss.clearValidators();
+    }else{
+         this.nameRegiss.setValidators([Validators.required]);
+         this.paternRegiss.setValidators([Validators.required]);
+         this.maternRegiss.setValidators([Validators.required]);
+         this.mailRegiss.setValidators([Validators.required, this.validMail2.bind(this)]);
+    }
+         this.nameRegiss.updateValueAndValidity();
+         this.paternRegiss.updateValueAndValidity();
+         this.maternRegiss.updateValueAndValidity();
+         this.mailRegiss.updateValueAndValidity();
+  }
+
+  _keyOnly3letter(event:any, name:any){
+      const only3letter = /a{3,10}|b{3,10}|c{3,10}|d{3,10}|e{3,10}|f{3,10}|g{3,10}|h{3,10}|i{3,10}|j{3,10}|k{3,10}|l{3,10}|m{3,10}|n{3,10}|o{3,10}|p{3,10}|q{3,10}|w{3,10}|r{3,10}|s{3,10}|t{3,10}|u{3,10}|v{3,10}|w{3,10}|x{3,10}|y{3,10}|z{3,10}/;      
+      if(only3letter.test(name)){        
+        event.preventDefault();        
+        return false;    
+      } else{        
+        return true;
+      }
+  }
+
+  save() {    
     if(this.send){
       return;
     }
     this.send = true;
-
-    this.gralService.registerSolo(this.user).then((data) => {
-      console.log(data['msg']);
+    this.gralService.registerSolo(this.user).then((data) => {      
       this.send = false;
-
       if(data['success'] == false) {
         this.inputError =  data['input'];
         this.txtError = data['msg'];
@@ -98,6 +152,9 @@ export class NewRegisterSoloComponent implements OnInit {
             break;
           case 'mail':
             this.mail.nativeElement.focus();
+            break;
+          case 'mailRegis':
+            this.mailRegis.nativeElement.focus();
             break;
           case 'cel':
             this.cel.nativeElement.focus();
@@ -123,25 +180,38 @@ export class NewRegisterSoloComponent implements OnInit {
             this.interestNivel.open();
             this.interestNivel.focus();
             break;
+          case 'citaCampus':
+            this.citaCampus.open();
+            this.citaCampus.focus();
+            break;
+          case 'tipificacion':
+            this.tipificacion.open();
+            this.tipificacion.focus();
+            break;
           default:
-
         }
+
+        /*const dialogRef = this.dialog.open(ModalConfirmComponent, {
+          minWidth: '50%',
+          data: { type: 'warning', content: data['msg'] }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            console.log('The dialog was closed', result);
+          }
+        });*/
       }
-
-
     }, (err) => {
       console.warn(err);
       this.send = false;
     });
   }
-
-
   serviceValidInput(type, input, value, control){
     return this.gralService.validInput({type: type, data: value}).then((data) => {
       if(data['success'] == false) {
         this.inputError = input;
         this.txtError = data['msg'];
-
         switch(input) {
           case 'name':
             this.nameTxtError = data['msg'];
@@ -155,20 +225,16 @@ export class NewRegisterSoloComponent implements OnInit {
           case 'mail':
             this.mailTxtError = data['msg'];
             break;
-          case 'cel':
-            this.celTxtError = data['msg'];
-            break;
+          case 'mailRegis':
+            this.mailRegisTxtError = data['msg'];
+            break;          
           case 'phone':
             this.phoneTxtError = data['msg'];
             break;
-          case 'birthday':
-            this.birthdayTxtError = data['msg'];
-            break;
-          case 'age':
-            this.ageTxtError = data['msg'];
-            break;
+          case 'tipo':
+            this.tipoTxtError = data['msg'];
+            break;          
         }
-
         return {'error': true};
       }else{
         this.inputError =  null;
@@ -186,19 +252,16 @@ export class NewRegisterSoloComponent implements OnInit {
             break;
           case 'mail':
             this.mailTxtError = false;
-            break;
-          case 'cel':
-            this.celTxtError = false;
-            break;
+            break; 
+          case 'mailRegis':
+            this.mailRegisTxtError = false;
+            break;         
           case 'phone':
             this.phoneTxtError = false;
             break;
-          case 'birthday':
-            this.birthdayTxtError = false;
-            break;
-          case 'age':
-            this.ageTxtError = false;
-            break;
+          case 'tipo':
+            this.tipoTxtError = false;
+            break;         
         }
         control.setErrors(null);
         return null;
@@ -210,6 +273,7 @@ export class NewRegisterSoloComponent implements OnInit {
     if(control.value){
       return this.serviceValidInput('name', 'name', control.value, control);
     }
+
     if(this.inputError == 'name'){return {'error': true};}
     return null;
   }
@@ -238,18 +302,20 @@ export class NewRegisterSoloComponent implements OnInit {
     return null;
   }
 
-  validCel(control: FormControl){
+  validMail2(control: FormControl){
     if(control.value){
-      return this.serviceValidInput('cel', 'cel', control.value, control);
+      return this.serviceValidInput('mailRegis', 'mailRegis', control.value, control);
     }
+    if(this.inputError == 'mailRegis'){return {'error': true};}
+    return null;
+  }
+
+  validCel(control: FormControl){
     if(this.inputError == 'cel'){return {'error': true};}
     return null;
   }
 
   validPhone(control: FormControl){
-    if(control.value){
-      return this.serviceValidInput('phone', 'phone', control.value, control);
-    }
     if(this.inputError == 'phone'){return {'error': true};}
     return null;
   }
@@ -279,9 +345,19 @@ export class NewRegisterSoloComponent implements OnInit {
     return null;
   }
 
+  validCitaCampus(control: FormControl){
+    if(this.user.citaCampus == '0'){return {'error': true};}
+    return null;
+  }
+
+  validTipificacion(control: FormControl){
+    if(this.user.tipificacion == '0'){return {'error': true};}
+    return null;
+  }
+
   _keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
-    const inputChar = String.fromCharCode(event.charCode);
+    let inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
       // invalid character, prevent input
@@ -294,7 +370,7 @@ export class NewRegisterSoloComponent implements OnInit {
     const inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
+      // invalid character, prevent input           
       event.preventDefault();
     }
   }

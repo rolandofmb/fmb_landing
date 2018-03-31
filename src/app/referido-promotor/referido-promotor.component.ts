@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import {GeneralService} from '../services/general.service';
-import {MatDialog, MatSelect} from '@angular/material';
+import {MatDialog, MatSelect, MatRadioGroup} from '@angular/material';
 import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -13,57 +14,74 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-referido-promotor',
+  templateUrl: './referido-promotor.component.html',
+  styleUrls: ['./referido-promotor.component.scss']
 })
-export class SearchComponent implements OnInit {
-  
-  @ViewChild('numPerson') numPerson: ElementRef;
-  @ViewChild('numAcount') numAcount: ElementRef;
 
-  @ViewChild('mail') mail: ElementRef;
-  @ViewChild('mailTutor') mailTutor: ElementRef;
+
+export class ReferidoPromotorComponent implements OnInit {
+
+  @ViewChild('canal') canal;
+  @ViewChild('interes') interes;
   @ViewChild('name') name: ElementRef;
   @ViewChild('patern') patern: ElementRef;
   @ViewChild('matern') matern: ElementRef;
+  @ViewChild('mail') mail: ElementRef;
+  //@ViewChild('cel') cel: ElementRef;
   @ViewChild('phone') phone: ElementRef;
+  @ViewChild('tipo') tipo;
+  //@ViewChild('birthday') birthday: ElementRef;
+  //@ViewChild('age') age: ElementRef;
+  @ViewChild('interestCampus') interestCampus;
+  @ViewChild('interestNivel') interestNivel;
+  @ViewChild('interestModel') interestModel;
+  @ViewChild('interestCareer') interestCareer;
+  @ViewChild('citaCampus') citaCampus;
+  @ViewChild('tipificacion') tipificacion;
 
+  startDate = new Date(1990, 0, 1);
   user: any = {};
   send = false;
   inputError: any;
   txtError: any;
 
   matcher = new MyErrorStateMatcher();
-
-  numPersonn  = new FormControl('', this.validNumPerson.bind(this));
-  numAcountt  = new FormControl('', this.validNumAcount.bind(this));
-
-  maill = new FormControl('', this.validMail.bind(this));
-  mailTutorr = new FormControl('', this.validMailTutor.bind(this));
-
-  namee = new FormControl('', [this.validName.bind(this)]);
-  paternn = new FormControl('', [this.validPatern.bind(this)]);
-  maternn = new FormControl('', [this.validMatern.bind(this)]);
-  phonee = new FormControl('', [this.validPhone.bind(this)]);
-  
-  numPersonTxtError: any = false;
-  numAcountTxtError: any = false;
+  namee = new FormControl('', [Validators.required, this.validName.bind(this)]);
+  paternn = new FormControl('', [Validators.required, this.validPatern.bind(this)]);
+  maternn = new FormControl('', [Validators.required, this.validMatern.bind(this)]);
+  maill = new FormControl('', [Validators.required, this.validMail.bind(this)]);
+  //cell = new FormControl('', [Validators.required, this.validCel.bind(this)]);
+  phonee = new FormControl('', [Validators.required, this.validPhone.bind(this)]);
+  //genderr = new FormControl('', this.validGender.bind(this));
+  extensione = new FormControl('', [this.validExtension.bind(this)]);
+  tipocel = new FormControl('');
+  interestCampuss = new FormControl('', this.validInterestCampus.bind(this));
+  interestNivell = new FormControl('', this.validInterestNivel.bind(this));
+  interestModell = new FormControl('', this.validInterestModel.bind(this));
+  interestCareerr = new FormControl('', this.validInterestCareer.bind(this));
 
   nameTxtError: any = false;
   paternTxtError: any = false;
   maternTxtError: any = false;
   mailTxtError: any = false;
-  mailTutorTxtError: any = false;
+  //celTxtError: any = false;
   phoneTxtError: any = false;
   tipoTxtError: any = false;
+  //ageTxtError: any = false;
 
-
-  constructor(private gralService: GeneralService, public dialog: MatDialog) { }
+  constructor(private gralService: GeneralService, public dialog: MatDialog, private renderer: Renderer2) {
+    this.user.parent = '0';
+    this.user.interestCampus = '0';
+     this.user.interestArea = '0'; 
+     this.user.interestNivel = '0'; 
+     this.user.interestModel = '0'; 
+     this.user.interestCareer = '0';
+    this.user.interestCycle = '0';
+  }
 
   ngOnInit() {
   }
-  
   _keyOnly3letter(event:any, name:any){
       const only3letter = /a{3,10}|b{3,10}|c{3,10}|d{3,10}|e{3,10}|f{3,10}|g{3,10}|h{3,10}|i{3,10}|j{3,10}|k{3,10}|l{3,10}|m{3,10}|n{3,10}|o{3,10}|p{3,10}|q{3,10}|w{3,10}|r{3,10}|s{3,10}|t{3,10}|u{3,10}|v{3,10}|w{3,10}|x{3,10}|y{3,10}|z{3,10}/;      
       if(only3letter.test(name)){        
@@ -73,6 +91,16 @@ export class SearchComponent implements OnInit {
         return true;
       }
   }
+  onKeydownPhone(event: KeyboardEvent) {
+    let name = this.phonee.value;  
+    console.log(name);              
+    if(name.length < 10){         
+         this.tipocel.clearValidators();
+    }else{
+         this.tipocel.setValidators([Validators.required]);
+    }
+         this.tipocel.updateValueAndValidity();
+  }
   save() {
     console.log(this.user);
     if(this.send){
@@ -80,7 +108,7 @@ export class SearchComponent implements OnInit {
     }
     this.send = true;
 
-    this.gralService.search(this.user).then((data) => {
+    this.gralService.referidoReferente(this.user).then((data) => {
       console.log(data['msg']);
       this.send = false;
 
@@ -89,26 +117,53 @@ export class SearchComponent implements OnInit {
         this.txtError = data['msg'];
 
         switch (data['input']) {
+          case 'name':
+            this.name.nativeElement.focus();
+            break;
+          case 'patern':
+            this.patern.nativeElement.focus();
+            break;
+          case 'matern':
+            this.matern.nativeElement.focus();
+            break;
           case 'mail':
             this.mail.nativeElement.focus();
             break;
-          case 'mailTutor':
-            this.mailTutor.nativeElement.focus();
+          case 'phone':
+            this.phone.nativeElement.focus();
+            break;                      
+          case 'interestCampus':
+            this.interestCampus.open();
+            this.interestCampus.focus();
+            break;
+          case 'interestNivel':
+            this.interestNivel.open();
+            this.interestNivel.focus();
+            break;
+          case 'interestModel':
+            this.interestModel.open();
+            this.interestModel.focus();
+            break;
+          case 'interestCareer':
+            this.interestCareer.open();
+            this.interestCareer.focus();
             break;
           default:
         }
-
       }
     }, (err) => {
       console.warn(err);
       this.send = false;
     });
   }
+
+
   serviceValidInput(type, input, value, control){
     return this.gralService.validInput({type: type, data: value}).then((data) => {
       if(data['success'] == false) {
         this.inputError = input;
         this.txtError = data['msg'];
+
         switch(input) {
           case 'name':
             this.nameTxtError = data['msg'];
@@ -124,15 +179,14 @@ export class SearchComponent implements OnInit {
             break;          
           case 'phone':
             this.phoneTxtError = data['msg'];
-            break;
-          case 'mailTutor':
-            this.mailTutorTxtError = data['msg'];
-            break; 
+            break;                      
         }
+
         return {'error': true};
       }else{
         this.inputError =  null;
         this.txtError = null;
+
         switch(input) {
           case 'name':
             this.nameTxtError = false;
@@ -149,17 +203,11 @@ export class SearchComponent implements OnInit {
           case 'phone':
             this.phoneTxtError = false;
             break;
-          case 'mailTutor':
-            this.mailTutorTxtError = false;  
         }
         control.setErrors(null);
         return null;
       }
     });
-  }
-  validMailTutor(control: FormControl){
-    if(this.inputError == 'mailTutor'){return {'error': true};}
-    return null;
   }
 
   validName(control: FormControl){
@@ -193,7 +241,7 @@ export class SearchComponent implements OnInit {
     if(this.inputError == 'mail'){return {'error': true};}
     return null;
   }
-  
+
 
   validPhone(control: FormControl){
     if(control.value){
@@ -203,22 +251,52 @@ export class SearchComponent implements OnInit {
     return null;
   }
 
-  validNumAcount(control: FormControl){
+
+  /*
+  validCel(control: FormControl){
     if(control.value){
-      return this.serviceValidInput('numAcount', 'numAcount', control.value, control);
+      return this.serviceValidInput('cel', 'cel', control.value, control);
     }
-    if(this.inputError == 'numAcount'){return {'error': true};}
+    if(this.inputError == 'cel'){return {'error': true};}
+    return null;
+  }
+  validGender(control: FormControl){
+    if(this.user.gender == '0'){return {'error': true};}
     return null;
   }
 
-  validNumPerson(control: FormControl){
-    if(control.value){
-      return this.serviceValidInput('numPerson', 'numPerson', control.value, control);
-    }
-    if(this.inputError == 'numPerson'){return {'error': true};}
+  validBirthday(control: FormControl){
+    if(this.inputError == 'birthday'){return {'error': true};}
     return null;
   }
 
+  */
+
+  validInterestCampus(control: FormControl){
+    if(this.user.interestCampus == '0'){return {'error': true};}
+    return null;
+  }
+
+  
+  validExtension(control: FormControl){
+    if(this.user.tipo == 'Oficina'){return {'error': true};}
+    return null;
+  }
+
+  validInterestNivel(control: FormControl){
+    if(this.user.interestNivel == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestModel(control: FormControl){
+    if(this.user.interestModel == '0'){return {'error': true};}
+    return null;
+  }
+
+  validInterestCareer(control: FormControl){
+    if(this.user.interestCareer == '0'){return {'error': true};}
+    return null;
+  }
 
   _keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;

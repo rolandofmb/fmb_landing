@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatGridListModule } from '@angular/material';
-import { MatTableModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule } from '@angular/material';
+import { MatTableModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatRadioModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NewRegisterPromotionComponent } from './new-register-promotion/new-register-promotion.component';
@@ -23,6 +23,11 @@ import { SearchInboundComponent } from './search-inbound/search-inbound.componen
 import { GeneralService } from './services/general.service';
 import { AppConfig } from './services/constants';
 import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
+import { HomeComponent } from './home/home.component';
+import { ReferidoReferenteComponent } from './referido-referente/referido-referente.component';
+import { ReferidoPromotorComponent } from './referido-promotor/referido-promotor.component';
+import { ReferidoTlmkComponent } from './referido-tlmk/referido-tlmk.component';
+import { ReferidoWebComponent } from './referido-web/referido-web.component';
 
 
 @NgModule({
@@ -37,7 +42,12 @@ import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
     SearchResultsComponent,
     NewRegisterComponent,
     NewRegisterSoloComponent,
-    ModalConfirmComponent
+    ModalConfirmComponent,
+    HomeComponent,
+    ReferidoReferenteComponent,
+    ReferidoPromotorComponent,
+    ReferidoTlmkComponent,
+    ReferidoWebComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +65,8 @@ import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ],
   providers: [AppConfig, GeneralService],
   bootstrap: [AppComponent]

@@ -11,10 +11,6 @@ import { NewRegisterComponent } from './new-register/new-register.component';
 import {NewRegisterSoloComponent} from './new-register-solo/new-register-solo.component';
 import {SearchInboundComponent} from "./search-inbound/search-inbound.component";
 import {ModalConfirmComponent} from "./modal-confirm/modal-confirm.component";
-import { ReferidoReferenteComponent } from './referido-referente/referido-referente.component';
-import { ReferidoPromotorComponent } from './referido-promotor/referido-promotor.component';
-import { ReferidoTlmkComponent } from './referido-tlmk/referido-tlmk.component';
-import { ReferidoWebComponent } from './referido-web/referido-web.component';
 
 const routes: Routes = [
   {
@@ -25,32 +21,6 @@ const routes: Routes = [
     path: 'register',
     component: NewRegisterComponent
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-
-  
-
-  {
-    path: 'referidoReferente',
-    component: ReferidoReferenteComponent
-  },
-
-   {
-    path: 'referidoPromotor',
-    component: ReferidoPromotorComponent
-  },
-   {
-    path: 'referidoTlmk',
-    component: ReferidoTlmkComponent
-  },
-  {
-    path: 'referidoWeb',
-    component: ReferidoWebComponent
-  },
-
-
   {
     path: 'registerPromotion',
     component: NewRegisterPromotionComponent
