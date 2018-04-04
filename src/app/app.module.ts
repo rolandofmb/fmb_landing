@@ -28,6 +28,8 @@ import { ReferidoReferenteComponent } from './referido-referente/referido-refere
 import { ReferidoPromotorComponent } from './referido-promotor/referido-promotor.component';
 import { ReferidoTlmkComponent } from './referido-tlmk/referido-tlmk.component';
 import { ReferidoWebComponent } from './referido-web/referido-web.component';
+import { NewRegisterExistingComponent } from './new-register-existing/new-register-existing.component';
+import { NewRegisterExistingReceptionComponent } from './new-register-existing-reception/new-register-existing-reception.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { ReferidoWebComponent } from './referido-web/referido-web.component';
     ReferidoReferenteComponent,
     ReferidoPromotorComponent,
     ReferidoTlmkComponent,
-    ReferidoWebComponent
+    ReferidoWebComponent,
+    NewRegisterExistingComponent,
+    NewRegisterExistingReceptionComponent
   ],
   imports: [
     BrowserModule,

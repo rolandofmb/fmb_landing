@@ -40,7 +40,7 @@
       </mat-grid-tile>
        <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Modalidad" [formControl]="tipo_referetentee" [(ngModel)]="user.tipo_referetente">
+          <mat-select placeholder="Tipo" #tipo_referetente [formControl]="tipo_referetentee" [(ngModel)]="user.tipo_referetente">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Arquitectura">Arquitectura</mat-option>
             <mat-option value="Diseño">Diseño</mat-option>
@@ -188,11 +188,8 @@
     </mat-radio-group>    
     </mat-grid-list> 
   </div>
-  <mat-grid-list cols="3" rowHeight="70px" style="margin-bottom: 50px;">
+  <mat-grid-list cols="2" rowHeight="70px" style="margin-bottom: 50px;">
     <mat-grid-tile class="le">
-    </mat-grid-tile>
-    <mat-grid-tile>
-      &nbsp;&nbsp;
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="btn">

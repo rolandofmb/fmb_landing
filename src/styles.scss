@@ -38,9 +38,8 @@ body {
 }
 
 .register, .inputsOut{
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 30px;
+  width: 65%;  
+  margin: 30px auto;
 }
 
 .inputsOut{
@@ -49,13 +48,18 @@ body {
 }
 
 mat-form-field{
-  width: 80%;
+  width: 90%;
 }
 
 .form{
   border: 1px solid #cccccc;
   padding: 20px 2%;
   background-color: #ffffff;
+  &.no_border{
+    border:none !important;
+    background-color: transparent !important;
+    padding:20px 2% 0 !important;
+  }
   mat-form-field, mat-checkbox{
     width: 95%;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
@@ -82,7 +86,7 @@ mat-form-field{
   color: #ffffff;
   font-size: 17px;
   padding: 10px;
-  padding-left: 2%;  
+  padding-left: 3%;  
   font-family: 'Gotham-medium' !important;
   border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
 }
@@ -90,7 +94,6 @@ mat-form-field{
 .mt{
   margin-top: 30px;
 }
-
 
 .btn{
   text-align: center;
@@ -164,15 +167,17 @@ mat-form-field{
   background-color: #006fba !important;
 }
 .mat-form-field-label, .mat-checkbox-label{
-  font-size: 16px !important;
-  color: black !important;
-  font-weight: 600 !important;
+  font-size: 16px !important; color: #757575 !important; font-weight: 600 !important;
 }
 
 .mat-form-field-should-float .mat-form-field-label{
   font-size: 16px !important;
-  color: black !important;
+  color: #757575 !important;
 }
+.mat-form-field-label.mat-empty.mat-form-field-empty{
+  font-size: 16px !important; color: #000 !important; font-weight: 600 !important;
+}
+
 
 .mat-input-invalid.mat-focused .mat-form-field-ripple {
   background-color: #33ca6d !important;

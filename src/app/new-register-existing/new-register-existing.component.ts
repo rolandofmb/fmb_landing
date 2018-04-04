@@ -12,12 +12,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+
+
 @Component({
-  selector: 'app-new-register',
-  templateUrl: './new-register.component.html',
-  styleUrls: ['./new-register.component.scss']
+  selector: 'app-new-register-existing',
+  templateUrl: './new-register-existing.component.html',
+  styleUrls: ['./new-register-existing.component.scss']
 })
-export class NewRegisterComponent implements OnInit {
+export class NewRegisterExistingComponent implements OnInit {
+
+
   
   
   minDate = new Date();
@@ -115,6 +119,7 @@ export class NewRegisterComponent implements OnInit {
   ngOnInit() {
     
   }
+  
   onChange(){
     if(this.user.name !='' || this.user.patern !='' || this.user.matern !='' ||  this.user.mail !=''){
       this.citaCampuss.reset({value: '', disabled: false});

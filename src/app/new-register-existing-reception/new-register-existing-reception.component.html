@@ -2,112 +2,17 @@
   <div class="form no_border">
     <mat-grid-list class="" cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Usuario" [formControl]="userr" [(ngModel)]="user.user" value="Ricardo Vargas" readonly>
-        </mat-form-field>
+        &nbsp;
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Ejecutivo" [(ngModel)]="user.ejecutive">
-            <mat-option value="val1">Juan lopez</mat-option>
-            <mat-option value="val2">Javier guerrero</mat-option>
-          </mat-select>
+          <input matInput placeholder="Usuario" [formControl]="userr" [(ngModel)]="user.user" value="Ricardo Vargas" readonly>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
 </div>
-
-
 <div class="register">
-  <div class="head-blue mt">
-    TIPIFICACIÓN
-  </div>
-  <div class="form">
-    <mat-grid-list cols="2" rowHeight="70px">
-      <mat-grid-tile>
-        <mat-checkbox [(ngModel)]="user.tradition">Actividad no Tradicional</mat-checkbox>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        &nbsp;
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="2" rowHeight="70px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Sub Tipo de Actividad" [(ngModel)]="user.subActivity" required #subActivity [formControl]="subActivityy">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="val1">val1</mat-option>
-            <mat-option value="val2">val2</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inputError == 'subActivity'">{{txtError}}</mat-error>
-          <mat-error *ngIf="subActivityy.hasError('required')">Por favor selecciona un Sub Tipo de Actividad</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Actividad de Agenda" [(ngModel)]="user.company" required #company [formControl]="companyy" [errorStateMatcher]="matcher">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="val1">val1</mat-option>
-            <mat-option value="val2">val2</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inputError == 'company'">{{txtError}}</mat-error>
-          <mat-error *ngIf="companyy.hasError('required')">Por favor selecciona una Escuela / Empresa</mat-error>
-
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="2" rowHeight="70px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Sub Sub Tipo de Actividad" [(ngModel)]="user.subsubActivity" required #subsubActivity [formControl]="subsubActivityy" [errorStateMatcher]="matcher">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="val1">val1</mat-option>
-            <mat-option value="val2">val2</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inputError == 'subsubActivity'">{{txtError}}</mat-error>
-          <mat-error *ngIf="subsubActivityy.hasError('required')">Por favor selecciona un Sub Sub Tipo de Actividad</mat-error>
-
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Turno" [(ngModel)]="user.tourn" required #tourn [formControl]="tournn" [errorStateMatcher]="matcher">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="val1">val1</mat-option>
-            <mat-option value="val2">val2</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inputError == 'tourn'">{{txtError}}</mat-error>
-          <mat-error *ngIf="tournn.hasError('required')">Por favor selecciona un Turno</mat-error>
-
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="2" rowHeight="70px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Escuela/Empresa" [(ngModel)]="user.school" required #school [formControl]="schooll" [errorStateMatcher]="matcher">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="val1">val1</mat-option>
-            <mat-option value="val2">val2</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inputError == 'school'">{{txtError}}</mat-error>
-          <mat-error *ngIf="schooll.hasError('required')">Por favor selecciona un Turno</mat-error>
-          
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Calidad" [(ngModel)]="user.calidad">
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
-
-
   <div class="head-blue mt">
     CONTACTO
   </div>
@@ -175,7 +80,7 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input  matInput placeholder="Correo Electrónico" #mailRegis  [(ngModel)]="user.mailRegis" [formControl]="mailRegiss" [errorStateMatcher]="matcher"  >
+          <input  matInput placeholder="Correo Electrónico" #mailRegis  [(ngModel)]="user.mailRegis" [formControl]="mailRegiss" [errorStateMatcher]="matcher">
           <mat-error *ngIf="mailRegisTxtError && !mailRegiss.hasError('required')">{{mailRegisTxtError}}</mat-error>
           <mat-error *ngIf="mailRegiss.hasError('required')">Por favor ingresa un correo válido</mat-error>
         </mat-form-field>
@@ -246,7 +151,7 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'birthday'}">
-          <input matInput [matDatepicker]="pickerB" readonly placeholder="Fecha de Nacimiento" required #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento" required #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
           <mat-datepicker-toggle matSuffix [for]="pickerB"></mat-datepicker-toggle>
           <mat-datepicker #pickerB startView="year" [startAt]="startDate"></mat-datepicker>
           <mat-error *ngIf="inputError == 'birthday'">{{txtError}}</mat-error>
@@ -308,7 +213,9 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
-        &nbsp;
+        <mat-form-field>
+		    <input matInput placeholder="Número de Persona" [formControl]="num_de_personaa" [(ngModel)]="user.num_de_persona" value=""  readonly>
+		</mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
@@ -323,7 +230,9 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
-        &nbsp;
+        <mat-form-field>
+		    <input matInput placeholder="Etapa de Venta" [formControl]="etapa_ventaa" [(ngModel)]="user.etapa_venta" value=""  readonly>
+		</mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
@@ -340,7 +249,9 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
-        &nbsp;
+        <mat-form-field>
+		    <input matInput placeholder="Número de Cuenta" [formControl]="numero_cuentaa" [(ngModel)]="user.numero_cuenta" value=""  readonly>
+		</mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
@@ -358,13 +269,19 @@
         &nbsp;
       </mat-grid-tile>
     </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="70px">      
+        <div class="btns">
+          <button mat-raised-button color="warn" class="cancel">ASIGNAR</button>
+          <button mat-raised-button color="warn" class="cancel">DIRECTA</button>
+          <button mat-raised-button color="warn" class="cancel">GRUPAL</button>   
+        </div>         
+    </mat-grid-list>
   </div>
  
-  
   <mat-grid-list cols="2" rowHeight="70px" style="margin-bottom: 50px;">
     <mat-grid-tile class="le">
       Capturar Referido
-    </mat-grid-tile>
+    </mat-grid-tile>    
     <mat-grid-tile>
       <div class="btn">
         <button mat-raised-button color="warn" class="cancel">CANCELAR</button>

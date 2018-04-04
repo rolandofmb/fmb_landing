@@ -1,14 +1,16 @@
-<div style="text-align: center;">
-  <mat-grid-list class="inputsOut" cols="2" rowHeight="70px">
-    <mat-grid-tile>
-      &nbsp;
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <input matInput placeholder="Usuario" [formControl]="userr" [(ngModel)]="user.user" value="Ricardo Vargas" readonly>
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="register">
+  <div class="form no_border">
+    <mat-grid-list class="" cols="2" rowHeight="70px">
+      <mat-grid-tile>
+        &nbsp;
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Usuario" [formControl]="userr" [(ngModel)]="user.user" value="Ricardo Vargas" readonly>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>
 <div class="register">
   <div class="head-blue mt">
@@ -43,8 +45,8 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Teléfono" [(ngModel)]="user.phoner" [formControl]="phonerr"  maxlength="10" minlength="10" type="tel" (keypress)="_keyPress($event)">
-          <mat-error *ngIf="phonerr.hasError('required')">Por favor ingresa un apellido paterno</mat-error>
+          <input matInput placeholder="Teléfono o Correo Electrónico" [(ngModel)]="user.phoner" [formControl]="phonerr">
+          <mat-error *ngIf="phonerr.hasError('required')">Por favor ingresa Teléfono o Correo Electrónico</mat-error>
           <mat-error *ngIf="phonerr.hasError('minlength')">Al menos debe contener 10 dígitos</mat-error>                    
         </mat-form-field>
       </mat-grid-tile>
@@ -77,14 +79,15 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput  placeholder="Nombre" required #name [(ngModel)]="user.name" [formControl]="namee" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)" (keypress)="_keyOnly3letter($event,namee.value)">
+          <input matInput  placeholder="Nombre" #name (keyup)="onChange()" [(ngModel)]="user.name" [formControl]="namee" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)" (keypress)="_keyOnly3letter($event,namee.value)">
           <mat-error *ngIf="nameTxtError && !namee.hasError('required')">{{nameTxtError}}</mat-error>
           <mat-error *ngIf="namee.hasError('required')">Por favor ingresa un nombre</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input (keyup)="onKeydownEmail($event)" [formControl]="nameRegiss" (keypress)="_keyOnly3letter($event,nameRegiss.value)" [errorStateMatcher]="matcher"  matInput placeholder="Nombre" [(ngModel)]="user.nameRegis" (keypress)="_keyPressTxt($event)">
+          <input (keyup)="onKeydownEmail($event)" #nameRegis  [formControl]="nameRegiss" (keypress)="_keyOnly3letter($event,nameRegiss.value)" [errorStateMatcher]="matcher"  matInput placeholder="Nombre" [(ngModel)]="user.nameRegis" (keypress)="_keyPressTxt($event)">
+          <mat-error *ngIf="nameRegissTxtError && !nameRegiss.hasError('required')">{{nameRegissTxtError}}</mat-error>          
           <mat-error *ngIf="nameRegiss.hasError('required')">Por favor ingresa un nombre</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -92,14 +95,15 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput  placeholder="Apellido Paterno" (keypress)="_keyOnly3letter($event,paternn.value)" required #patern [(ngModel)]="user.patern" [formControl]="paternn" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
+          <input matInput  placeholder="Apellido Paterno" (keyup)="onChange()"  (keypress)="_keyOnly3letter($event,paternn.value)"  #patern [(ngModel)]="user.patern" [formControl]="paternn" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
           <mat-error *ngIf="paternTxtError && !paternn.hasError('required')">{{paternTxtError}}</mat-error>
           <mat-error *ngIf="paternn.hasError('required')">Por favor ingresa un apellido paterno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input [formControl]="paternRegiss" (keypress)="_keyOnly3letter($event,paternRegiss.value)" [errorStateMatcher]="matcher" matInput placeholder="Apellido Paterno" (keypress)="_keyPressTxt($event)" [(ngModel)]="user.paternRegis">
+          <input [formControl]="paternRegiss" #paternRegis (keypress)="_keyOnly3letter($event,paternRegiss.value)" [errorStateMatcher]="matcher" matInput placeholder="Apellido Paterno" (keypress)="_keyPressTxt($event)" [(ngModel)]="user.paternRegis">
+          <mat-error *ngIf="paternRegissTxtError && !paternRegiss.hasError('required')">{{paternRegissTxtError}}</mat-error>                  
           <mat-error *ngIf="paternRegiss.hasError('required')">Por favor ingresa un apellido paterno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -107,14 +111,15 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
        <mat-form-field>
-          <input matInput minlength="10" placeholder="Apellido Materno" required #matern [(ngModel)]="user.matern" [formControl]="maternn" (keypress)="_keyOnly3letter($event,maternn.value)" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
+          <input matInput minlength="10" placeholder="Apellido Materno" (keyup)="onChange()"  #matern [(ngModel)]="user.matern" [formControl]="maternn" (keypress)="_keyOnly3letter($event,maternn.value)" [errorStateMatcher]="matcher" (keypress)="_keyPressTxt($event)">
           <mat-error *ngIf="maternTxtError && !maternn.hasError('required')">{{maternTxtError}}</mat-error>
           <mat-error *ngIf="maternn.hasError('required')">Por favor ingresa un apellido materno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input [formControl]="maternRegiss" (keypress)="_keyOnly3letter($event,maternRegiss.value)" [errorStateMatcher]="matcher" matInput placeholder="Apellido Materno" (keypress)="_keyPressTxt($event)" [(ngModel)]="user.maternRegis">
+          <input [formControl]="maternRegiss" #maternRegis (keypress)="_keyOnly3letter($event,maternRegiss.value)" [errorStateMatcher]="matcher" matInput placeholder="Apellido Materno" (keypress)="_keyPressTxt($event)" [(ngModel)]="user.maternRegis">
+          <mat-error *ngIf="maternRegissTxtError && !maternRegiss.hasError('required')">{{maternRegissTxtError}}</mat-error>                            
           <mat-error *ngIf="maternRegiss.hasError('required')">Por favor ingresa un apellido materno</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -141,7 +146,8 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Número Celular (10 dígitos)" [(ngModel)]="user.celRegis" maxlength="10" minlength="10" type="tel"  [formControl]="celRegiss" [errorStateMatcher]="matcher"  (keypress)="_keyPress($event)">
+          <input matInput placeholder="Número Celular (10 dígitos)" [(ngModel)]="user.celRegis" #celRegis maxlength="10" minlength="10" type="tel"  [formControl]="celRegiss" [errorStateMatcher]="matcher"  (keypress)="_keyPress($event)">
+          <mat-error *ngIf="celRegissTxtError && !celRegiss.hasError('required')">{{celRegissTxtError}}</mat-error>                                      
           <mat-error *ngIf="celRegiss.hasError('minlength')">Al menos debe contener 10 dígitos</mat-error>          
         </mat-form-field>
       </mat-grid-tile>
@@ -149,14 +155,15 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'cel'}">
-          <input matInput placeholder="Número Celular (10 dígitos)" required #cel [(ngModel)]="user.cel" [formControl]="cell" [errorStateMatcher]="matcher" maxlength="10" minlength="10" type="tel" (keypress)="_keyPress($event)">
+          <input matInput placeholder="Número Celular (10 dígitos)"  #cel [(ngModel)]="user.cel" [formControl]="cell" [errorStateMatcher]="matcher" maxlength="10" minlength="10" type="tel" (keypress)="_keyPress($event)">
           <mat-error *ngIf="inputError == 'cel'">{{txtError}}</mat-error>
           <mat-error *ngIf="cell.hasError('minlength')">Al menos debe contener 10 dígitos</mat-error>          
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Teléfono" [(ngModel)]="user.phoneRegis" [formControl]="phoneRegiss" [errorStateMatcher]="matcher" maxlength="10" minlength="10" type="tel" (keypress)="_keyPress($event)">
+          <input matInput placeholder="Teléfono" [(ngModel)]="user.phoneRegis" [formControl]="phoneRegiss"  #phoneRegis [errorStateMatcher]="matcher" maxlength="10" minlength="10" type="tel" (keypress)="_keyPress($event)">
+          <mat-error *ngIf="inputError == 'phoneRegis'">{{txtError}}</mat-error>          
           <mat-error *ngIf="phoneRegiss.hasError('minlength')">Al menos debe contener 10 dígitos</mat-error>                    
         </mat-form-field>
       </mat-grid-tile>
@@ -171,7 +178,7 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Parentezco" [(ngModel)]="user.parent">
+          <mat-select placeholder="Parentezco" #parentRegis [(ngModel)]="user.parentRegis"  [formControl]="parentRegiss" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Papá">Papá</mat-option>
             <mat-option value="Mamá">Mamá</mat-option>
@@ -179,13 +186,14 @@
             <mat-option value="Tutor">Tutor</mat-option>
             <mat-option value="Hermano(a)">Hermano(a)</mat-option>
           </mat-select>
+          <mat-error *ngIf="parentRegiss.hasError('required')">Por favor un parentezco</mat-error>
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Género" required #gender [(ngModel)]="user.gender" [formControl]="genderr" [errorStateMatcher]="matcher">
+          <mat-select placeholder="Género"  #gender [(ngModel)]="user.gender" [formControl]="genderr" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Hombre">Hombre</mat-option>
             <mat-option value="Mujer">Mujer</mat-option>
@@ -200,9 +208,9 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'birthday'}">
-          <input matInput [matDatepicker]="pickerB" placeholder="Fecha de Nacimiento" required #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
+          <input matInput [matDatepicker]="pickerB" readonly placeholder="Fecha de Nacimiento" #birthday [(ngModel)]="user.birthday" [formControl]="birthdayy" [errorStateMatcher]="matcher">
           <mat-datepicker-toggle matSuffix [for]="pickerB"></mat-datepicker-toggle>
-          <mat-datepicker #pickerB startView="year" [startAt]="startDate"></mat-datepicker>
+          <mat-datepicker #pickerB startView="year" [startAt]="startDate" disabled="false"></mat-datepicker>
           <mat-error *ngIf="inputError == 'birthday'">{{txtError}}</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -213,7 +221,7 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field [ngClass]="{'mat-form-field-invalid': inputError == 'age'}">
-          <input matInput placeholder="Edad" required #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" (keypress)="_keyPress($event)"  minlength="2" maxlength="2">
+          <input matInput placeholder="Edad"  #age [(ngModel)]="user.age" [formControl]="agee" [errorStateMatcher]="matcher" type="tel" (keypress)="_keyPress($event)"  minlength="2" maxlength="2">
           <mat-error *ngIf="inputError == 'age'">{{txtError}}</mat-error>
           <mat-error *ngIf="agee.hasError('minlength')">Al menos debe contener 2 dígitos</mat-error>          
         </mat-form-field>
@@ -344,7 +352,7 @@
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <mat-select placeholder="Campus" required #citaCampus [(ngModel)]="user.citaCampus" [formControl]="citaCampuss" [errorStateMatcher]="matcher">
+          <mat-select  placeholder="Campus de Cita" required [disabled]="true"  #citaCampus [(ngModel)]="user.citaCampus" [formControl]="citaCampuss" [errorStateMatcher]="matcher">
             <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="Atizapan">Atizapan</mat-option>
             <mat-option value="Cuitlahuac">Cuitlahuac</mat-option>
@@ -354,26 +362,22 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
-        <mat-form-field>
-          <mat-select placeholder="Asesor" [(ngModel)]="user.citaAsesor">
-            <mat-option value="0">Selecciona una opción</mat-option>
-            <mat-option value="Juan Lopez">Juan Lopez</mat-option>
-            <mat-option value="Javier Guerrero">Javier Guerrero</mat-option>
-          </mat-select>
-        </mat-form-field>
+        
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Fecha" (click)="picker.open()" [(ngModel)]="user.citadate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [disabled]="true" readonly placeholder="Fecha de Cita" (click)="picker.open()" [(ngModel)]="user.citadate" [formControl]="citadatee">
+          <mat-datepicker-toggle matSuffix [for]="picker" disabled="false"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
+        
         <mat-form-field>
-          <mat-select placeholder="Hora" [(ngModel)]="user.citaTime">
+          <mat-select placeholder="Hora de Cita" [(ngModel)]="user.citaTime" [disabled]="true" [formControl]="citaTimee" >
+            <mat-option value="0">Selecciona una opción</mat-option>
             <mat-option value="9am">9am</mat-option>
             <mat-option value="10am">10am</mat-option>
             <mat-option value="11am">11am</mat-option>
@@ -386,21 +390,24 @@
     </mat-grid-list>
     <mat-grid-list cols="2" rowHeight="70px">
       <mat-grid-tile>
-        <mat-checkbox [(ngModel)]="user.citaCall">Programación Llamada</mat-checkbox>
+        <mat-checkbox [(ngModel)]="user.citaCall" [disabled]="true" [formControl]="citaCalll">Programación Llamada</mat-checkbox>
+        <mat-checkbox [(ngModel)]="user.citaTransfer" [disabled]="true" [formControl]="citaTransferr">Transferencia en Linea</mat-checkbox>        
       </mat-grid-tile>
       <mat-grid-tile>
-        <mat-checkbox [(ngModel)]="user.citaTransfer">Transferencia en Linea</mat-checkbox>
+        <mat-form-field>
+          <mat-select placeholder="Asesor" [(ngModel)]="user.citaAsesor" [disabled]="true" [formControl]="citaAsesorr">
+            <mat-option value="0">Selecciona una opción</mat-option>
+            <mat-option value="Juan Lopez">Juan Lopez</mat-option>
+            <mat-option value="Javier Guerrero">Javier Guerrero</mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  
-  <mat-grid-list cols="3" rowHeight="70px" style="margin-bottom: 50px;">
+  <mat-grid-list cols="2" rowHeight="70px" style="margin-bottom: 50px;">
     <mat-grid-tile class="le">
       Capturar Referido
-    </mat-grid-tile>
-    <mat-grid-tile>
-      &nbsp;&nbsp;
-    </mat-grid-tile>
+    </mat-grid-tile>    
     <mat-grid-tile>
       <div class="btn">
         <button mat-raised-button color="warn" class="cancel">CANCELAR</button>
